@@ -1,0 +1,14 @@
+{
+  "name": "greeting-webapp",
+  "version": "1.0.0",
+  "description": "\"It create route to greet someone\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sinethemba Dlova",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
