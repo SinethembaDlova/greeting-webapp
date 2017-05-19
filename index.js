@@ -12,6 +12,8 @@ app.get('/', function (req, res) {
 });
 
 var storedNames = [];
+var nameGreeted = {};
+var counter = 0;
 
 //creating people
 app.get('/greeting/:name', function(req, res){
@@ -32,7 +34,12 @@ app.get('/greeted', function(req, res){
 
 });
 
+
 //displaying how many times someone has been greeted
-/*app.get('/counter/<USER_NAME>', function(req, res){
-    res.send(Hello, <USER_NAME> has been greeted <COUNTER> times.)
-});*/
+app.get('/counter/:name', function(req, res){
+     if (nameGreeted[req.params.name] === undefined){
+       nameGreeted[req.params.name] = true;
+       counter++;
+     }
+     res.send("Hello, " + req.params.name + " has been greeted " + counter + " times.");
+});
