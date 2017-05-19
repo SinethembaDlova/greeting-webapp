@@ -37,9 +37,11 @@ app.get('/greeted', function(req, res){
 
 //displaying how many times someone has been greeted
 app.get('/counter/:name', function(req, res){
-     if (nameGreeted[req.params.name] === undefined){
-       nameGreeted[req.params.name] = true;
-       counter++;
-     }
+  for (var i = 0; i < storedNames.length; i++) {
+    if (req.params.name === storedNames[i]){
+      //nameGreeted[req.params.name] = true;
+      counter++;
+    }
+  }
      res.send("Hello, " + req.params.name + " has been greeted " + counter + " times.");
 });
