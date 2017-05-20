@@ -1,11 +1,16 @@
-// call express and store in a variable
+// Gain access to express, express-handlebars and body-parser
 var express = require('express');
+var exphbs  = require('express-handlebars');
+var bodyParser = require('body-parser');
+
 var app = express();
+
+app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
+app.set('view engine', 'hbs');
 
 //start the server
 var server = app.listen(3000);
-var storedNames = [];
-//var nameGreeted = {};
+
 
 app.get('/', function(req, res) {
     res.send('Greeting webapp!');
@@ -18,6 +23,7 @@ app.get('/greeting/:name', function(req, res) {
     storedNames.push(req.params.name);
     //console.log(storedNames);
 });
+
 //displaying all the created names
 app.get('/greeted', function(req, res) {
     var uniqueNames = [];
