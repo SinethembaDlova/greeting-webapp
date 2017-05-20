@@ -5,17 +5,17 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
+app.use(express.static('public'));
+app.engine('hbs', exphbs({defaultLayout: "main", extname: 'hbs'}));
 app.set('view engine', 'hbs');
 
-app.use(express.static('public'));
 
 //start the server
-var server = app.listen(3000);
 
 
 app.get('/', function(req, res) {
-    res.send('Greeting webapp!');
+    res.render("html_forms");
+    //res.send('Greeting webapp!');
 });
 
 var storedNames = [];
@@ -53,3 +53,5 @@ app.get('/counter/:name', function(req, res) {
     }
     res.send("Hello, " + req.params.name + " has been greeted " + counter + " times.");
 });
+
+var server = app.listen(3000);

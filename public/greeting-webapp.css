@@ -14,31 +14,91 @@ body
 
 .nav
 {
-  height: 10%;
+  margin: 0;
   width: 100%;
-  background: #000;
+  background: #f80000;
   color: white;
   font-family: "sans-serif";
+  position: absolute;
 }
 
 .nav h1
 {
-  margin:10px 0;
+  margin:10px 30px;
   position: absolute;
+}
+
+.nav ul
+{
+  float: right;
+  margin: 0 10px 0 0;
 }
 
 .nav li
 {
-    float: right;
-    display: inline-block;
+  padding: 20px;
+  display: inline-block;
+  margin-left: -5px;
+  height: inherit;
+  border-left: 2px solid white;
+  border-top: 2px solid #f80000;
+  border-bottom: 2px solid #f80000;
+  font-family: "sans-serif";
+  font-weight: bold;
+
 }
 
 .contentDiv
 {
-  margin: 0;
   height: 90%;
   width: 100%;
   background: brown;
   color: white;
   font-family: "sans-serif";
+  margin: 0;
+}
+
+.inputCover
+{
+  height: 40%;
+  width: 40%;
+  margin-top: 100px;
+  margin-left: 400px;
+  border: 2px solid grey;
+
+}
+
+.inputCover h2
+{
+  font-family: "sans-serif";
+  text-align: center;
+}
+
+.inputCover label
+{
+  font-family: "sans-serif";
+  margin-left: 120px;
+  font-size: 20px;
+
+}
+
+.inputCover button
+{
+  height: 40px;
+  width: 286px;
+  background-color: #c53146;
+  border-color: rgba(187, 36, 42, 0.64);
+  color: white;
+  margin-left: 120px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+
+.inputCover p
+{
+  font-family: "sans-serif";
+  margin-top: 50px;
+  margin-left: 50px;
+  font-size: 18px;
 }
