@@ -8,6 +8,8 @@ var app = express();
 app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
 app.set('view engine', 'hbs');
 
+app.use(express.static('public'));
+
 //start the server
 var server = app.listen(3000);
 
@@ -16,7 +18,7 @@ app.get('/', function(req, res) {
     res.send('Greeting webapp!');
 });
 
-
+var storedNames = [];
 //creating people
 app.get('/greeting/:name', function(req, res) {
     res.send("Hello, " + req.params.name)

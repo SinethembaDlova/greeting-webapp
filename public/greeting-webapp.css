@@ -1,0 +1,44 @@
+body
+{
+  margin: auto;
+}
+
+.container
+{
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: block;
+}
+
+.nav
+{
+  height: 10%;
+  width: 100%;
+  background: #000;
+  color: white;
+  font-family: "sans-serif";
+}
+
+.nav h1
+{
+  margin:10px 0;
+  position: absolute;
+}
+
+.nav li
+{
+    float: right;
+    display: inline-block;
+}
+
+.contentDiv
+{
+  margin: 0;
+  height: 90%;
+  width: 100%;
+  background: brown;
+  color: white;
+  font-family: "sans-serif";
+}
