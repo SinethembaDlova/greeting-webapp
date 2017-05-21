@@ -14,12 +14,11 @@ body
 
 .nav
 {
-  margin: 0;
+  height: 10%;
   width: 100%;
   background: #f80000;
   color: white;
   font-family: "sans-serif";
-  position: absolute;
 }
 
 .nav h1
@@ -47,17 +46,6 @@ body
   font-weight: bold;
 
 }
-
-.contentDiv
-{
-  height: 90%;
-  width: 100%;
-  background: brown;
-  color: white;
-  font-family: "sans-serif";
-  margin: 0;
-}
-
 .inputCover
 {
   height: 40%;
@@ -82,23 +70,46 @@ body
 
 }
 
+.inputCover input
+{
+  height: 25px;
+  width: 200px;
+  margin-left: 10px;
+  border-radius: 2px;
+  text-align: center;
+}
+
 .inputCover button
 {
   height: 40px;
   width: 286px;
-  background-color: #c53146;
-  border-color: rgba(187, 36, 42, 0.64);
+  background-color: #f80000;
+  border-color: #f80000;
   color: white;
+  border-radius: 2px;
   margin-left: 120px;
   margin-top: 10px;
   font-size: 18px;
 }
 
 
-.inputCover p
+.display
+{
+  margin-top: 20px;
+  height: 10%;
+  width: 50%;
+  background-color: #324b5c;
+  margin-left: 335px;
+  border-radius: 8px;
+}
+
+.display p
 {
   font-family: "sans-serif";
-  margin-top: 50px;
-  margin-left: 50px;
   font-size: 18px;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  position: absolute;
+
 }

@@ -21,9 +21,10 @@ app.get('/', function(req, res) {
 var storedNames = [];
 //creating people
 app.get('/greeting/:name', function(req, res) {
-    res.send("Hello, " + req.params.name)
-    storedNames.push(req.params.name);
-    //console.log(storedNames);
+  res.send("Hello, " + req.params.name);
+  res.render("html_forms_greeting");
+    /*storedNames.push(req.params.name);
+    //console.log(storedNames);*/
 });
 
 //displaying all the created names
