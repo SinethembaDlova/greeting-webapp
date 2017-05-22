@@ -58,7 +58,9 @@ app.get('/greeted', function(req, res) {
             uniqueNames.push(storedNames[i]);
         }
     }
-    res.render('html_forms_greeted');
+    res.render('html_forms_greeted', {
+        name: req.params.name
+    });
     //res.send(displayName);
 
 });
