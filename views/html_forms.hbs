@@ -1,23 +1,10 @@
-<div class="container">
-  <div class="nav">
-    <h1>Greeting Webapp</h1>
-    <ul>
-      <li>Greet me</li>
-      <li>Greeted</li>
-    </ul>
-  </div>
+<form class="inputCover" action="/" method="post">
+  <h2>Greet me</h2>
+  <label for="input">Name:</label>
+  <input type="text" name="takeName" value="" id="input">
+  <input class="btn" type="submit" name="greet" value="Greet me">
+</form>
 
-
-  <form class="inputCover" action="greeting" method="post">
-    <h2>Greet me</h2>
-    <label for="input">Name:</label>
-    <input type="text" name="takeName" value="" id="input">
-    <input class="btn" type="submit" name="greet" value="Greet me">
-  </form>
-
-
- <div class="display">
-   <p>{{name}}</p>
- </div>
-
+<div class="display">
+  <p>{{name}}</p>
 </div>

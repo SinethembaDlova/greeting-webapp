@@ -5,9 +5,9 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-app.use(express.static('public'));
 app.engine('hbs', exphbs({defaultLayout: "main", extname: 'hbs'}));
 app.set('view engine', 'hbs');
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
     //res.send('Greeting webapp!');
 });
 
-app.post('/greeting', function(req, res){
+app.post('/', function(req, res){
   var inputName = req.body.takeName;
 
   //console.log(inputName);
@@ -36,8 +36,8 @@ app.get('/greeting/:name', function(req, res) {
    //res.send("Hello, " + req.params.name);
 
    res.render('html_forms', {name: req.params.name});
-
    storedNames.push(req.params.name);
+
  });
 
  //displaying all the created names
