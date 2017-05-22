@@ -19,18 +19,24 @@ app.get('/', function(req, res) {
     //res.send('Greeting webapp!');
 });
 
-app.post('/', function(req, res){
+app.post('/greeting', function(req, res){
   var inputName = req.body.takeName;
-  console.log(inputName);
-  res.render("html_forms");
-  res.send({name:inputName});
+
+  //console.log(inputName);
+  //res.render("html_forms");
+  //res.send({name:inputName});
+
+  res.redirect('greeting/' + inputName);
 });
 
 
  var storedNames = [];
  //creating people
 app.get('/greeting/:name', function(req, res) {
-   res.send("Hello, " + req.params.name);
+   //res.send("Hello, " + req.params.name);
+
+   res.render('html_forms', {name: req.params.name});
+
    storedNames.push(req.params.name);
  });
 
