@@ -59,7 +59,7 @@ app.get('/greeted', function(req, res) {
         }
     }
     res.render('html_forms_greeted', {
-        name: req.params.name
+        name: uniqueNames
     });
     //res.send(displayName);
 

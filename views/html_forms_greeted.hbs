@@ -1,6 +1,11 @@
 <form class="inputCover" action="/" method="post">
   <h2>You have greeted:</h2>
 
-  {{req.params.name}}
-
+  <ul>
+    {{#each name}}
+    <div class="greetedNames">
+      <li >{{this}}</li>
+    </div>
+    {{/each}}
+  </ul>
 </form>
