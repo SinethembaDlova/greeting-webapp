@@ -111,7 +111,7 @@ body
   text-align: center;
   color: white;
   margin-top: 20px;
-  margin-left: 300px;
+  margin-left: 270px;
   position: absolute;
 
 }
@@ -126,8 +126,14 @@ body
   display: inline-block;
   font-family: "sans-serif";
   list-style: none;
-  margin: 0;
   border-radius: 8px;
+}
 
-
+.greetedNames ul
+{
+  margin: 0;
+}
+.greetedNames li
+{
+  margin-top: 7px;
 }
