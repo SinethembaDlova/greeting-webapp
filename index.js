@@ -62,8 +62,13 @@ app.get('/greeted', function(req, res) {
         name: uniqueNames
     });
     //res.send(displayName);
-
 });
+
+app.post('/greeted', function(req, res) {
+    var inputName = req.body.takeName;
+    res.redirect('counter/' + inputName);
+});
+
 
 
 //displaying how many times someone has been greeted

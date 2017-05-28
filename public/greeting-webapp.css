@@ -121,18 +121,18 @@ body
   background-color: #324b5c;
   color: white;
   height: 35px;
-  width: 120px;
+  width: 115px;
   text-align: center;
   display: inline-block;
   font-family: "sans-serif";
   list-style: none;
   border-radius: 8px;
+  margin-left: 10px;
+  margin-right:0px;
+  margin-top: 10px;
 }
 
-.greetedNames ul
-{
-  margin: 0;
-}
+
 .greetedNames li
 {
   margin-top: 7px;
