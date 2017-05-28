@@ -24,14 +24,36 @@ app.get('/', function(req, res) {
     //res.send('Greeting webapp!');
 });
 
+function getLanguage(lang, fn){
+  if(lang  === 'Sesotho')
+  {
+    fn(null, 'Dumela')
+  }
+  else if (lang === 'English'){
+    fn(null, 'Hello')
+  }
+
+  else if (lang === 'IsiXhosa'){
+    fn(null, 'Molo')
+  }
+}
+
+
 app.post('/', function(req, res) {
+
     var inputName = req.body.takeName;
+    var lang = req.body.language;
 
-    //console.log(inputName);
-    //res.render("html_forms");
-    //res.send({name:inputName});
+    getLanguage(lang, function(err, result){
+      if (err){
+        return err;
+      }
+      else {
+        res.redirect('greeting/' + inputName)
+        return result;
+    }
+  })
 
-    res.redirect('greeting/' + inputName);
 });
 
 
@@ -40,9 +62,8 @@ var storedNames = [];
 app.get('/greeting/:name', function(req, res) {
     //res.send("Hello, " + req.params.name);
 
-    res.render('html_forms_greeting', {
-        name: req.params.name
-    });
+    res.render('html_forms_greeting', {name: req.params.name, lang: result});
+    //res.render('html_forms_greeting', {name: req.params.name});
     storedNames.push(req.params.name);
 
 });
