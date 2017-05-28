@@ -77,12 +77,39 @@ body
 
 .inputCover input
 {
+  margin-top: 20px;
   height: 25px;
   width: 200px;
   margin-left: 10px;
   border-radius: 2px;
   text-align: center;
 }
+
+.languagediv
+{
+  display: inline-block;
+  margin-top: -8px;
+  width: 10px;
+  margin-left: 12px;
+  margin-right: 80px;
+}
+
+.languagediv input
+{
+  width: 16px;
+  margin-left: 135px;
+  margin-right: -40px;
+
+}
+
+.languagediv label
+{
+
+  font-family: "sans-serif";
+  font-size: 12px;
+  margin-right: -100px;
+}
+
 
 .inputCover .btn
 {
