@@ -80,8 +80,9 @@ app.get('/counter/:name', function(req, res) {
         }
     }
     res.render('html_forms_counter', {
-        name: req.params.name
-    }, {count: counter});
+        name: req.params.name,
+        count: counter
+    });
     //res.send("Hello, " + req.params.name + " has been greeted " + counter + " time(s).");
 });
 
@@ -96,4 +97,9 @@ app.listen(3000, function(err) {
 /*var iqhosha = document.querySelector(".inputCover button");
 var igama = document.querySelector('.inputCover input');
 igqhosha.addEventListener('click',res.redirect(server +'/greeting/' + igama) );
+, {
+    name: req.params.name
+}, {
+    count: counter
+}
 */

@@ -44,7 +44,12 @@ body
   border-bottom: 2px solid #f80000;
   font-family: "sans-serif";
   font-weight: bold;
+}
 
+.nav a
+{
+  text-decoration: none;
+  color: white;
 }
 .inputCover
 {
@@ -136,4 +141,30 @@ body
 .greetedNames li
 {
   margin-top: 7px;
+}
+
+.greetedNames a
+{
+  text-decoration: none;
+  color: white;
+}
+
+.displayCounts
+{
+  margin-top: 200px;
+  height: 10%;
+  width: 50%;
+  background-color: #324b5c;
+  margin-left: 335px;
+  border-radius: 8px;
+}
+#countingGreets
+{
+  font-family: "sans-serif";
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  margin-left: 130px;
+  position: absolute;
 }
