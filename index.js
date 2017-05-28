@@ -79,7 +79,10 @@ app.get('/counter/:name', function(req, res) {
             counter++;
         }
     }
-    res.send("Hello, " + req.params.name + " has been greeted " + counter + " times.");
+    res.render('html_forms_counter', {
+        name: req.params.name
+    }, {count: counter});
+    //res.send("Hello, " + req.params.name + " has been greeted " + counter + " time(s).");
 });
 
 app.listen(3000, function(err) {
