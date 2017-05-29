@@ -51,6 +51,41 @@ body
   text-decoration: none;
   color: white;
 }
+
+.cuontGreets
+{
+  margin-right: 30px;
+  margin-top: 5px;
+  float: right;
+  color: white;
+  font-family: "sans-serif";
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.countUsers
+{
+  background-color: #324b5c;
+  width: 20%;
+  height: 22%;
+  float: left;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.countUsers img
+{
+  height: 140px;
+  float: left;
+}
+
+#conterTag
+{
+  margin-left: 35px;
+  margin-top: 30px;
+}
+
+
 .inputCover
 {
   height: 40%;
