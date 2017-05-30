@@ -47,6 +47,7 @@ app.post('/', function(req, res) {
 
 var storedNames = [];
 var uniqueNames = [];
+
 //creating people
 app.get('/greeting/:name', function(req, res) {
 
