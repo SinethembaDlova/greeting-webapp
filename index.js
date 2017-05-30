@@ -20,22 +20,18 @@ app.use(bodyParser.urlencoded({
 //start the server
 
 app.get('/', function(req, res) {
-    res.render("html_forms");
+    res.render("html_forms", {counting: uniqueNames.length});
     //res.send('Greeting webapp!');
 });
 
-function getLanguage(lang){
-  if(lang  === 'Sesotho')
-  {
-    return 'Dumela';
-  }
-  else if (lang === 'English'){
-    return 'Hello';
-  }
-
-  else if (lang === 'IsiXhosa'){
-    return 'Molo';
-  }
+function getLanguage(lang) {
+    if (lang === 'Sesotho') {
+        return 'Dumela';
+    } else if (lang === 'English') {
+        return 'Hello';
+    } else if (lang === 'IsiXhosa') {
+        return 'Molo';
+    }
 }
 
 var language = "";
@@ -44,16 +40,23 @@ app.post('/', function(req, res) {
 
     var inputName = req.body.takeName;
     language = req.body.language;
+
     res.redirect('greeting/' + inputName)
 });
 
 
 var storedNames = [];
+var uniqueNames = [];
 //creating people
 app.get('/greeting/:name', function(req, res) {
+
     var languageFunc = getLanguage(language);
 
-    res.render('html_forms_greeting', {lang: languageFunc, name: req.params.name});
+    res.render('html_forms_greeting', {
+        lang: languageFunc,
+        name: req.params.name,
+        counting: uniqueNames.length
+    });
     //res.render('html_forms_greeting', {name: req.params.name});
     storedNames.push(req.params.name);
 
@@ -61,7 +64,6 @@ app.get('/greeting/:name', function(req, res) {
 
 //displaying all the created names
 app.get('/greeted', function(req, res) {
-    var uniqueNames = [];
     var displayName = '';
 
     for (var i = 0; i < storedNames.length; i++) {

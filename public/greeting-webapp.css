@@ -79,9 +79,9 @@ body
   float: left;
 }
 
-#conterTag
+#counterTag
 {
-  margin-left: 35px;
+  margin-left: 30px;
   margin-top: 30px;
   font-size: 50px;
 }
@@ -170,7 +170,7 @@ body
 .display
 {
   margin-top: 20px;
-  height: 10%, auto;
+  height: 10%;
   width: 50%;
   background-color: #324b5c;
   margin-left: 335px;
