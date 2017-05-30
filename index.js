@@ -17,6 +17,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+var storedNames = [];
+var uniqueNames = [];
+var displayName = '';
 //start the server
 
 app.get('/', function(req, res) {
@@ -45,27 +48,13 @@ app.post('/', function(req, res) {
 });
 
 
-var storedNames = [];
-var uniqueNames = [];
 
 //creating people
 app.get('/greeting/:name', function(req, res) {
 
     var languageFunc = getLanguage(language);
 
-    res.render('html_forms_greeting', {
-        lang: languageFunc,
-        name: req.params.name,
-        counting: uniqueNames.length
-    });
-    //res.render('html_forms_greeting', {name: req.params.name});
     storedNames.push(req.params.name);
-
-});
-
-//displaying all the created names
-app.get('/greeted', function(req, res) {
-    var displayName = '';
 
     for (var i = 0; i < storedNames.length; i++) {
         if (uniqueNames.indexOf(storedNames[i]) == -1) {
@@ -73,6 +62,20 @@ app.get('/greeted', function(req, res) {
             uniqueNames.push(storedNames[i]);
         }
     }
+
+    console.log(uniqueNames.length);
+    res.render('html_forms_greeting', {
+        lang: languageFunc,
+        name: req.params.name,
+        counting: uniqueNames.length
+    });
+    //res.render('html_forms_greeting', {name: req.params.name});
+
+});
+
+//displaying all the created names
+app.get('/greeted', function(req, res) {
+
     res.render('html_forms_greeted', {
         name: uniqueNames
     });
