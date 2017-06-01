@@ -55,13 +55,7 @@ app.get('/greeting/:name', function(req, res) {
     var languageFunc = getLanguage(language);
 
     storedNames.push(req.params.name);
-
-    for (var i = 0; i < storedNames.length; i++) {
-        if (uniqueNames.indexOf(storedNames[i]) == -1) {
-            displayName += storedNames[i] + "<br>";
-            uniqueNames.push(storedNames[i]);
-        }
-    }
+    counterFunc();
 
     console.log(uniqueNames.length);
     res.render('html_forms_greeting', {
@@ -103,6 +97,16 @@ app.get('/counter/:name', function(req, res) {
     });
     //res.send("Hello, " + req.params.name + " has been greeted " + counter + " time(s).");
 });
+
+
+function counterFunc(){
+  for (var i = 0; i < storedNames.length; i++) {
+      if (uniqueNames.indexOf(storedNames[i]) == -1) {
+          displayName += storedNames[i] + "<br>";
+          uniqueNames.push(storedNames[i]);
+      }
+  }
+}
 
 app.listen(3000, function(err) {
     if (err) {
