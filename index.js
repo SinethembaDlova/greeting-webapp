@@ -4,6 +4,7 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 
 var app = express();
+app.set('port', (process.env.PORT || 3000));
 
 app.engine('hbs', exphbs({
     defaultLayout: "main",
@@ -108,7 +109,7 @@ function counterFunc(){
   }
 }
 
-app.listen(3000, function(err) {
+app.listen(app.get('port'), function(err) {
     if (err) {
         return err;
     } else {
