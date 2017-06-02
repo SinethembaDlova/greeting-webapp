@@ -112,7 +112,7 @@ app.listen(3000, function(err) {
     if (err) {
         return err;
     } else {
-        console.log('server running');
+        console.log('server running on port 3000');
     }
 });
 
