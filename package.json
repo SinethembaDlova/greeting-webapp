@@ -6,20 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-
   "author": "Sinethemba Dlova",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express-handlebars": "^3.0.0"
+    "express-handlebars": "^3.0.0",
+    "mongo": "^0.1.0",
+    "mongoose": "^4.11.5"
   },
-
   "devDependencies": {
     "nodemon": "^1.11.0"
   },
-
-  "engine":{
-    "node" : "4.2.6"
+  "engine": {
+    "node": "4.2.6"
   }
 }
