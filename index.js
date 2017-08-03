@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var app = express();
 app.set('port', (process.env.PORT || 3000));
 
-
+//require mangoose and create a database that takes strings
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/greeted_names');
 
@@ -31,7 +31,11 @@ var displayName = '';
 //start the server
 
 app.get('/', function(req, res) {
-    res.redirect("/greetings")
+  res.render('html_forms', {
+      //lang: languageFunc,
+      //name: req.params.name,
+      //counting: uniqueNames.length
+  });
 });
 
 function getLanguage(lang) {
@@ -51,11 +55,23 @@ app.post('/', function(req, res) {
     var inputName = req.body.takeName;
     language = req.body.language;
 
-    res.redirect('greeting/' + inputName)
+    //sending the name that we get from the input box to Mongo
+    var names = new GreetedName({
+        name: inputName
+    });
+
+    names.save(function(err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log('hello');
+            //redicting into another route
+            res.redirect('greeting/' + inputName)
+        }
+    });
+
 });
-
-
-
 
 
 //creating people
@@ -82,7 +98,6 @@ app.get('/greeting/:name', function(req, res) {
         counting: uniqueNames.length
     });
     //res.render('html_forms_greeting', {name: req.params.name});
-
 });
 
 //displaying all the created names
@@ -102,13 +117,13 @@ app.post('/greeted', function(req, res) {
         name: inputName
     });
 
-    names.save(function(err) {
+    GreetedName.find(function(err, results) {
         if (err) {
             console.log(err);
         } else {
-            console.log('hello');
+            console.log(results);
             //redicting into another route
-            res.redirect('/counter/' + inputName);
+            res.redirect('/greetings' + inputName);
         }
     });
 
