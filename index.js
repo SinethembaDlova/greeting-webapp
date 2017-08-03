@@ -6,6 +6,14 @@ var bodyParser = require('body-parser');
 var app = express();
 app.set('port', (process.env.PORT || 3000));
 
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/greeted_names');
+
+var GreetedName = mongoose.model('greeted_names', {
+    name: String
+});
+
 app.engine('hbs', exphbs({
     defaultLayout: "main",
     extname: 'hbs'
@@ -17,15 +25,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 var storedNames = [];
 var uniqueNames = [];
 var displayName = '';
 //start the server
 
 app.get('/', function(req, res) {
-    res.render("html_forms", {counting: uniqueNames.length});
-    //res.send('Greeting webapp!');
+    res.redirect("/greetings")
 });
 
 function getLanguage(lang) {
@@ -50,7 +56,18 @@ app.post('/', function(req, res) {
 
 
 
+
+
 //creating people
+app.get('/greetings', function(req, res) {
+
+  res.render('html_forms_greeting', {
+      //lang: languageFunc,
+      //name: req.params.name,
+      //counting: uniqueNames.length
+  });
+});
+
 app.get('/greeting/:name', function(req, res) {
 
     var languageFunc = getLanguage(language);
@@ -79,7 +96,22 @@ app.get('/greeted', function(req, res) {
 
 app.post('/greeted', function(req, res) {
     var inputName = req.body.takeName;
-    res.redirect('counter/' + inputName);
+
+    //sending the name that we get from the input box to Mongo
+    var names = new GreetedName({
+        name: inputName
+    });
+
+    names.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('hello');
+            //redicting into another route
+            res.redirect('/counter/' + inputName);
+        }
+    });
+
 });
 
 
@@ -100,13 +132,13 @@ app.get('/counter/:name', function(req, res) {
 });
 
 
-function counterFunc(){
-  for (var i = 0; i < storedNames.length; i++) {
-      if (uniqueNames.indexOf(storedNames[i]) == -1) {
-          displayName += storedNames[i] + "<br>";
-          uniqueNames.push(storedNames[i]);
-      }
-  }
+function counterFunc() {
+    for (var i = 0; i < storedNames.length; i++) {
+        if (uniqueNames.indexOf(storedNames[i]) == -1) {
+            displayName += storedNames[i] + "<br>";
+            uniqueNames.push(storedNames[i]);
+        }
+    }
 }
 
 app.listen(app.get('port'), function(err) {
