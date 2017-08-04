@@ -2,9 +2,9 @@
   <h2>You have greeted:</h2>
 
 
-    {{#each name}}
+    {{#each names}}
     <div class="greetedNames">
-      <li ><a href="/counter/{{this}}">{{this}}</a></li>
+      <li ><a href="/counter/{{this}}">{{this.name}}</a></li>
     </div>
     {{/each}}
 

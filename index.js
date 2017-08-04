@@ -31,11 +31,11 @@ var displayName = '';
 //start the server
 
 app.get('/', function(req, res) {
-  res.render('html_forms', {
-      //lang: languageFunc,
-      //name: req.params.name,
-      //counting: uniqueNames.length
-  });
+    res.render('html_forms', {
+        //lang: languageFunc,
+        //name: req.params.name,
+        //counting: uniqueNames.length
+    });
 });
 
 function getLanguage(lang) {
@@ -60,12 +60,11 @@ app.post('/', function(req, res) {
         name: inputName
     });
 
-    names.save(function(err) {
+    names.save(function(err, names) {
         if (err) {
             console.log(err);
-        }
-        else {
-            console.log('hello');
+        } else {
+            console.log(names);
             //redicting into another route
             res.redirect('greeting/' + inputName)
         }
@@ -77,11 +76,11 @@ app.post('/', function(req, res) {
 //creating people
 app.get('/greetings', function(req, res) {
 
-  res.render('html_forms_greeting', {
-      //lang: languageFunc,
-      //name: req.params.name,
-      //counting: uniqueNames.length
-  });
+    res.render('html_forms_greeting', {
+        //lang: languageFunc,
+        //name: req.params.name,
+        //counting: uniqueNames.length
+    });
 });
 
 app.get('/greeting/:name', function(req, res) {
@@ -103,25 +102,26 @@ app.get('/greeting/:name', function(req, res) {
 //displaying all the created names
 app.get('/greeted', function(req, res) {
 
-    res.render('html_forms_greeted', {
-        name: uniqueNames
+    var inputName = req.body.takeName;
+    //trying to retrieve the data stored in database
+    GreetedName.find(function(err, names) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(names);
+            //redicting into another route
+            res.render('html_forms_greeted', {
+                names: names
+            });
+
+        }
     });
-    //res.send(displayName);
+
+    //res.redirect('/greetings' + inputName);
 });
 
 app.post('/greeted', function(req, res) {
     var inputName = req.body.takeName;
-
-    //trying to retrieve the data stored in database
-    GreetedName.find(function(err, GreetedName) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(results);
-            //redicting into another route
-            res.redirect('/greetings' + inputName);
-        }
-    });
 
 });
 
