@@ -28,15 +28,7 @@ app.use(bodyParser.urlencoded({
 var storedNames = [];
 var uniqueNames = [];
 var displayName = '';
-//start the server
-
-app.get('/', function(req, res) {
-    res.render('html_forms', {
-        //lang: languageFunc,
-        //name: req.params.name,
-        //counting: uniqueNames.length
-    });
-});
+var language = "";
 
 function getLanguage(lang) {
     if (lang === 'Sesotho') {
@@ -48,7 +40,25 @@ function getLanguage(lang) {
     }
 }
 
-var language = "";
+
+app.get('/', function(req, res) {
+
+  GreetedName.find(function(err, allNames) {
+      if (err) {
+          console.log(err);
+      } else {
+          console.log(allNames);
+          //redicting into another route
+          res.render('html_forms', {
+              //lang: languageFunc,
+              name: req.params.name,
+              counting: allNames.length
+          });
+
+      }
+  });
+});
+
 
 app.post('/', function(req, res) {
 
@@ -77,9 +87,9 @@ app.post('/', function(req, res) {
 app.get('/greetings', function(req, res) {
 
     res.render('html_forms_greeting', {
-        //lang: languageFunc,
-        //name: req.params.name,
-        //counting: uniqueNames.length
+        lang: languageFunc,
+        name: req.params.name,
+        counting: uniqueNames.length
     });
 });
 
@@ -90,19 +100,26 @@ app.get('/greeting/:name', function(req, res) {
     storedNames.push(req.params.name);
     counterFunc();
 
-    console.log(uniqueNames.length);
-    res.render('html_forms_greeting', {
-        lang: languageFunc,
-        name: req.params.name,
-        counting: uniqueNames.length
+    GreetedName.find(function(err, allNames) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(allNames);
+            //redicting into another route
+            res.render('html_forms_greeting', {
+                lang: languageFunc,
+                name: req.params.name,
+                counting: allNames.length
+            });
+        }
     });
+
+
     //res.render('html_forms_greeting', {name: req.params.name});
 });
 
 //displaying all the created names
 app.get('/greeted', function(req, res) {
-
-    var inputName = req.body.takeName;
     //trying to retrieve the data stored in database
     GreetedName.find(function(err, names) {
         if (err) {
@@ -121,7 +138,6 @@ app.get('/greeted', function(req, res) {
 });
 
 app.post('/greeted', function(req, res) {
-    var inputName = req.body.takeName;
 
 });
 
@@ -159,13 +175,3 @@ app.listen(app.get('port'), function(err) {
         console.log('server running on port 3000');
     }
 });
-
-/*var iqhosha = document.querySelector(".inputCover button");
-var igama = document.querySelector('.inputCover input');
-igqhosha.addEventListener('click',res.redirect(server +'/greeting/' + igama) );
-, {
-    name: req.params.name
-}, {
-    count: counter
-}
-*/
