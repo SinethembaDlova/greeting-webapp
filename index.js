@@ -112,12 +112,8 @@ app.get('/greeted', function(req, res) {
 app.post('/greeted', function(req, res) {
     var inputName = req.body.takeName;
 
-    //sending the name that we get from the input box to Mongo
-    var names = new GreetedName({
-        name: inputName
-    });
-
-    GreetedName.find(function(err, results) {
+    //trying to retrieve the data stored in database
+    GreetedName.find(function(err, GreetedName) {
         if (err) {
             console.log(err);
         } else {
