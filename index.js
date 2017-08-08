@@ -121,14 +121,14 @@ app.get('/greeting/:name', function(req, res) {
 //displaying all the created names
 app.get('/greeted', function(req, res) {
     //trying to retrieve the data stored in database
-    GreetedName.find(function(err, names) {
+    GreetedName.find(function(err, allNames) {
         if (err) {
             console.log(err);
         } else {
-            console.log(names);
-            //redicting into another route
+            console.log(allNames);
+
             res.render('html_forms_greeted', {
-                names: names
+                names: allNames
             });
 
         }
@@ -145,7 +145,7 @@ app.post('/greeted', function(req, res) {
 
 //displaying how many times someone has been greeted
 app.get('/counter/:name', function(req, res) {
-    var counter = 0;
+    /*var counter = 0;
     for (var i = 0; i < storedNames.length; i++) {
         if (req.params.name === storedNames[i]) {
             counter++;
@@ -154,6 +154,20 @@ app.get('/counter/:name', function(req, res) {
     res.render('html_forms_counter', {
         name: req.params.name,
         count: counter
+    });*/
+
+    GreetedName.findOne({name: req.params.name},function(err, allNames) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(allNames);
+
+            res.render('html_forms_counter', {
+              name: req.params.name,
+              count: counter
+            });
+
+        }
     });
     //res.send("Hello, " + req.params.name + " has been greeted " + counter + " time(s).");
 });
