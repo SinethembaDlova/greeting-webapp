@@ -11,8 +11,9 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/greeted_names');
 
 var GreetedName = mongoose.model('greeted_names', {
-    name: String
-});
+    name: {type: String, unique: true, sparse: true}
+    });
+
 
 app.engine('hbs', exphbs({
     defaultLayout: "main",
@@ -69,6 +70,7 @@ app.post('/', function(req, res) {
     var names = new GreetedName({
         name: inputName
     });
+    names.index({name: 1}, {unique: true});
 
     names.save(function(err, names) {
         if (err) {
