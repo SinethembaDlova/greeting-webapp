@@ -10,9 +10,13 @@ app.set('port', (process.env.PORT || 3000));
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/greeted_names');
 
-var GreetedName = mongoose.model('greeted_names', {
+var NameSchema = mongoose.Schema({
     name: {type: String, unique: true, sparse: true}
     });
+
+NameSchema.index({name: 1}, {unique: true});
+
+var GreetedName = mongoose.model('GreetedName', NameSchema);
 
 
 app.engine('hbs', exphbs({
@@ -70,11 +74,15 @@ app.post('/', function(req, res) {
     var names = new GreetedName({
         name: inputName
     });
-    names.index({name: 1}, {unique: true});
 
     names.save(function(err, names) {
         if (err) {
+            if(error.code == 11000)
+            {
+
+            }
             console.log(err);
+            res.redirect('/');
         } else {
             console.log(names);
             //redicting into another route
