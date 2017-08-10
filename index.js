@@ -2,6 +2,8 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('req-flash');
 
 var app = express();
 app.set('port', (process.env.PORT || 3000));
@@ -29,6 +31,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(session({ secret: '123' }));
+app.use(flash());
 
 var storedNames = [];
 var uniqueNames = [];
@@ -77,17 +81,22 @@ app.post('/', function(req, res) {
 
     names.save(function(err, names) {
         if (err) {
-            if(error.code == 11000)
+            if(err.code === 11000)
             {
-
+              req.flash('error', 'The person you are greeting is already greeted!');
             }
-            console.log(err);
+            else {
+              return next(err);
+            }
             res.redirect('/');
-        } else {
-            console.log(names);
-            //redicting into another route
-            res.redirect('greeting/' + inputName)
         }
+
+        else {
+            req.flash('success', '');
+            console.log(names);
+        }
+        //redicting into another route
+        res.redirect('greeting/' + inputName)
     });
 
 });
