@@ -70,53 +70,44 @@ app.get('/', function(req, res) {
 
 
 app.post('/', function(req, res) {
-
-
-
     var inputName = req.body.takeName;
     language = req.body.language;
 
-    //sending the name that we get from the input box to Mongo
-    var names = new GreetedName({
-        name: inputName
-    });
+    if (!inputName) {
+      req.flash('error', 'Who must we greet? Please enter a name!');
+      res.redirect('/');
+    }
 
-    names.save(function(err, names) {
+    else{
+      //sending the name that we get from the input box to Mongo
+      var names = new GreetedName({
+          name: inputName
+      });
 
+      names.save(function(err, names) {
+          if (err) {
+              if(err.code === 11000)
+              {
+                req.flash('error', 'The person you are greeting is already greeted!');
+                res.redirect('/');
+              }
+              else {
+                return next(err);
+              }
+          }
 
-        //req.flash('error', 'The person you are greeting is already greeted!');
-        if (err) {
-            if(err.code === 11000)
-            {
-              console.log("-> ************");
-
-              //console.log(req.flash)
-              req.flash('error', 'The person you are greeting is already greeted!');
-
-              //console.log(locals.messages.error);
-
-              res.redirect('/');
-
-            }
-            else {
-              return next(err);
-            }
-        }
-
-        else {
-            console.log(names);
-            //redicting into another route
-            res.redirect('greeting/' + inputName);
-        }
-    });
-
+          else {
+              console.log(names);
+              //redicting into another route
+              res.redirect('greeting/' + inputName);
+          }
+      });
+    }
 });
-
 
 //creating people
 app.get('/greetings', function(req, res) {
 
-    req.flash('success', 'Person greeted');
     res.render('html_forms_greeting', {
         lang: languageFunc,
         name: req.params.name,
