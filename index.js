@@ -84,19 +84,19 @@ app.post('/', function(req, res) {
             if(err.code === 11000)
             {
               req.flash('error', 'The person you are greeting is already greeted!');
+              res.redirect('/');
             }
             else {
               return next(err);
             }
-            res.redirect('/');
         }
 
         else {
-            req.flash('success', '');
             console.log(names);
+            //redicting into another route
+            res.redirect('greeting/' + inputName);
+            req.flash('success', '');
         }
-        //redicting into another route
-        res.redirect('greeting/' + inputName)
     });
 
 });
@@ -132,9 +132,6 @@ app.get('/greeting/:name', function(req, res) {
             });
         }
     });
-
-
-    //res.render('html_forms_greeting', {name: req.params.name});
 });
 
 //displaying all the created names

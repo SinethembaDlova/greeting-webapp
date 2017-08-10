@@ -236,3 +236,10 @@ body
   margin-left: 130px;
   position: absolute;
 }
+
+.error
+{
+background-color: #ead2d3;
+border-color: #eed3d7;
+color: #984949;
+}
