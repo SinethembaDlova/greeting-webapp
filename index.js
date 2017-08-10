@@ -3,7 +3,7 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var flash = require('req-flash');
+var flash = require('express-flash');
 
 var app = express();
 app.set('port', (process.env.PORT || 3000));
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(session({ secret: '123' }));
+app.use(session({ secret: 'keyboard cat', cookie: {maxAge: 6000 * 30} }));
 app.use(flash());
 
 var storedNames = [];
@@ -71,6 +71,8 @@ app.get('/', function(req, res) {
 
 app.post('/', function(req, res) {
 
+
+
     var inputName = req.body.takeName;
     language = req.body.language;
 
@@ -80,11 +82,21 @@ app.post('/', function(req, res) {
     });
 
     names.save(function(err, names) {
+
+
+        //req.flash('error', 'The person you are greeting is already greeted!');
         if (err) {
             if(err.code === 11000)
             {
+              console.log("-> ************");
+
+              //console.log(req.flash)
               req.flash('error', 'The person you are greeting is already greeted!');
+
+              //console.log(locals.messages.error);
+
               res.redirect('/');
+
             }
             else {
               return next(err);
@@ -95,7 +107,6 @@ app.post('/', function(req, res) {
             console.log(names);
             //redicting into another route
             res.redirect('greeting/' + inputName);
-            req.flash('success', '');
         }
     });
 
@@ -105,6 +116,7 @@ app.post('/', function(req, res) {
 //creating people
 app.get('/greetings', function(req, res) {
 
+    req.flash('success', 'Person greeted');
     res.render('html_forms_greeting', {
         lang: languageFunc,
         name: req.params.name,

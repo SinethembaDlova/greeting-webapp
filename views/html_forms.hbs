@@ -9,9 +9,11 @@
 <form class="inputCover" action="/" method="post">
   <h2>Greet me</h2>
 
-  <div class="error">
-    {{message.error}}
-  </div>
+  {{#if messages.error}}
+    <div class="error">
+      {{messages.error}}
+    </div>
+  {{/if}}
 
   <label for="input">Name:</label>
   <input type="text" name="takeName" value="" id="input"><br>
