@@ -13,11 +13,19 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/greeted_names');
 
 var NameSchema = mongoose.Schema({
-    name: {type: String, unique: true, sparse: true},
-    eachUserCounter : Number
-    });
+    name: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    eachUserCounter: Number
+});
 
-NameSchema.index({name: 1}, {unique: true});
+NameSchema.index({
+    name: 1
+}, {
+    unique: true
+});
 
 var GreetedName = mongoose.model('GreetedName', NameSchema);
 
@@ -32,7 +40,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(session({ secret: 'keyboard cat', cookie: {maxAge: 6000 * 30} }));
+app.use(session({
+    secret: 'keyboard cat',
+    cookie: {
+        maxAge: 6000 * 30
+    }
+}));
 app.use(flash());
 
 var storedNames = [];
@@ -53,20 +66,20 @@ function getLanguage(lang) {
 
 app.get('/', function(req, res) {
 
-  GreetedName.find(function(err, allNames) {
-      if (err) {
-          console.log(err);
-      } else {
-          console.log(allNames);
-          //redicting into another route
-          res.render('html_forms', {
-              //lang: languageFunc,
-              name: req.params.name,
-              counting: allNames.length
-          });
+    GreetedName.find(function(err, allNames) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(allNames);
+            //redicting into another route
+            res.render('html_forms', {
+                //lang: languageFunc,
+                name: req.params.name,
+                counting: allNames.length
+            });
 
-      }
-  });
+        }
+    });
 });
 
 
@@ -75,46 +88,40 @@ app.post('/', function(req, res) {
     language = req.body.language;
 
     if (!inputName) {
-      req.flash('error', 'Who must we greet? Please enter a name!');
-      res.redirect('/');
+        req.flash('error', 'Who must we greet? Please enter a name!');
+        res.redirect('/');
+    } else {
+        //sending the name that we get from the input box to Mongo
+        var names = new GreetedName({
+            name: inputName,
+            eachUserCounter: 1
+        });
+
+        names.save(function(err, allNames) {
+            if (err) {
+                if (err.code === 11000) {
+                    GreetedName.findOne({
+                        name: inputName
+                    }, function(err, results) {
+                        results.eachUserCounter++;
+                        results.save(function(error) {
+                        req.flash('error', 'The person you are greeting is already greeted!');
+                        res.redirect('/');
+
+                        })
+
+                    })
+                    //allNames.eachUserCounter++;
+                } else {
+                    return next(err);
+                }
+            } else {
+                console.log(allNames);
+                //redicting into another route
+                res.redirect('greeting/' + inputName);
+            }
+        });
     }
-
-    else{
-      //sending the name that we get from the input box to Mongo
-      var names = new GreetedName({
-          name: inputName,
-          eachUserCounter : 1
-      });
-
-      names.save(function(err, names) {
-          if (err) {
-              if(err.code === 11000)
-              {
-                req.flash('error', 'The person you are greeting is already greeted!');
-                res.redirect('/');
-              }
-              else {
-                return next(err);
-              }
-          }
-
-          else {
-              console.log(names);
-              //redicting into another route
-              res.redirect('greeting/' + inputName);
-          }
-      });
-    }
-});
-
-//creating people
-app.get('/greetings', function(req, res) {
-
-    res.render('html_forms_greeting', {
-        lang: languageFunc,
-        name: req.params.name,
-        counting: uniqueNames.length
-    });
 });
 
 app.get('/greeting/:name', function(req, res) {
@@ -167,19 +174,20 @@ app.get('/counter/:name', function(req, res) {
     /*
     for (var i = 0; i < storedNames.length; i++) {
         if (req.params.name === storedNames[i]) {
-            counter++;
         }
     }*/
 
-    GreetedName.findOne({name: req.params.name},function(err, allNames) {
+    GreetedName.findOne({
+        name: req.params.name
+    }, function(err, allNames) {
         if (err) {
             console.log(err);
         } else {
             console.log(allNames);
 
             res.render('html_forms_counter', {
-              name: req.params.name,
-              count: allNames.eachUserCounter
+                name: req.params.name,
+                count: allNames.eachUserCounter
             });
 
         }
