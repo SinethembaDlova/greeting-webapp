@@ -169,12 +169,8 @@ app.get('/counter/:name', function(req, res) {
         if (req.params.name === storedNames[i]) {
             counter++;
         }
-    }
-    res.render('html_forms_counter', {
-        name: req.params.name,
-        count: counter
-    });*/
-
+    }*/
+    
     GreetedName.findOne({name: req.params.name},function(err, allNames) {
         if (err) {
             console.log(err);
@@ -190,16 +186,6 @@ app.get('/counter/:name', function(req, res) {
     });
     //res.send("Hello, " + req.params.name + " has been greeted " + counter + " time(s).");
 });
-
-
-function counterFunc() {
-    for (var i = 0; i < storedNames.length; i++) {
-        if (uniqueNames.indexOf(storedNames[i]) == -1) {
-            displayName += storedNames[i] + "<br>";
-            uniqueNames.push(storedNames[i]);
-        }
-    }
-}
 
 app.listen(app.get('port'), function(err) {
     if (err) {
