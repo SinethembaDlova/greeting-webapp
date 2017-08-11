@@ -13,7 +13,8 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/greeted_names');
 
 var NameSchema = mongoose.Schema({
-    name: {type: String, unique: true, sparse: true}
+    name: {type: String, unique: true, sparse: true},
+    eachUserCounter : Number
     });
 
 NameSchema.index({name: 1}, {unique: true});
@@ -81,7 +82,8 @@ app.post('/', function(req, res) {
     else{
       //sending the name that we get from the input box to Mongo
       var names = new GreetedName({
-          name: inputName
+          name: inputName,
+          eachUserCounter : 1
       });
 
       names.save(function(err, names) {
@@ -120,8 +122,6 @@ app.get('/greeting/:name', function(req, res) {
     var languageFunc = getLanguage(language);
 
     storedNames.push(req.params.name);
-    counterFunc();
-
     GreetedName.find(function(err, allNames) {
         if (err) {
             console.log(err);
@@ -164,13 +164,13 @@ app.post('/greeted', function(req, res) {
 
 //displaying how many times someone has been greeted
 app.get('/counter/:name', function(req, res) {
-    /*var counter = 0;
+    /*
     for (var i = 0; i < storedNames.length; i++) {
         if (req.params.name === storedNames[i]) {
             counter++;
         }
     }*/
-    
+
     GreetedName.findOne({name: req.params.name},function(err, allNames) {
         if (err) {
             console.log(err);
@@ -179,12 +179,11 @@ app.get('/counter/:name', function(req, res) {
 
             res.render('html_forms_counter', {
               name: req.params.name,
-              count: counter
+              count: allNames.eachUserCounter
             });
 
         }
     });
-    //res.send("Hello, " + req.params.name + " has been greeted " + counter + " time(s).");
 });
 
 app.listen(app.get('port'), function(err) {
