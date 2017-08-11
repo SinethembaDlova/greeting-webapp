@@ -94,7 +94,7 @@ body
 
 .inputCover
 {
-  height: 40%;
+  height: 40%, inherit;
   width: 40%;
   margin-top: 180px;
   margin-left: 400px;
@@ -166,6 +166,20 @@ body
   font-size: 18px;
 }
 
+.inputCover .resetBtn
+{
+  height: 40px;
+  width: 286px;
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+  font-weight: bolder;
+  border-radius: 2px;
+  margin-left: 120px;
+  margin-bottom: 10px;
+  margin-top: 4px;
+  font-size: 18px;
+}
 
 .display
 {
@@ -203,6 +217,7 @@ body
   margin-left: 10px;
   margin-right:0px;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
