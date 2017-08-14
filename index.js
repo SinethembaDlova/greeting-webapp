@@ -144,6 +144,19 @@ app.get('/greeting/:name', function(req, res) {
     });
 });
 
+//deling everything in the database
+app.get('/clear', function(req, res){
+  GreetedName.remove(function(err, allNames) {
+    if (err) {
+      console.log(err);
+    }
+
+    else {
+      res.redirect('/');
+    }
+  });
+});
+
 //displaying all the created names
 app.get('/greeted', function(req, res) {
     //trying to retrieve the data stored in database
