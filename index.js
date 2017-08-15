@@ -10,7 +10,7 @@ app.set('port', (process.env.PORT || 3000));
 
 //require mangoose and create a database that takes strings
 var mongoose = require('mongoose');
-const mongoURL = process.env.MONGO_DB_URL || "'mongodb://localhost/greeted_names'";
+const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/greeted_names";
 mongoose.connect(mongoURL);
 
 var NameSchema = mongoose.Schema({
