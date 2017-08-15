@@ -88,7 +88,7 @@ app.post('/', function(req, res) {
     language = req.body.language;
 
     if (!inputName) {
-        req.flash('error', 'Who must we greet? Please enter a name!');
+        req.flash('error', 'Please enter a name!');
         res.redirect('/');
     } else {
         //sending the name that we get from the input box to Mongo
