@@ -6,7 +6,6 @@ var session = require('express-session');
 var flash = require('express-flash');
 
 var app = express();
-app.set('port', (process.env.PORT || 3000));
 
 //require mangoose and create a database that takes strings
 var mongoose = require('mongoose');
@@ -208,7 +207,10 @@ app.get('/counter/:name', function(req, res) {
     });
 });
 
-app.listen(app.get('port'), function(err) {
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, function(err) {
     if (err) {
         return err;
     } else {
