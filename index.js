@@ -4,12 +4,12 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var flash = require('express-flash');
-
-var app = express();
-
 //require mangoose and create a database that takes strings
 var mongoose = require('mongoose');
 const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/greeted_names";
+
+var app = express();
+
 mongoose.connect(mongoURL);
 
 var NameSchema = mongoose.Schema({
