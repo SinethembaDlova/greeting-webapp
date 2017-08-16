@@ -176,12 +176,6 @@ app.get('/greeted', function(req, res) {
     //res.redirect('/greetings' + inputName);
 });
 
-app.post('/greeted', function(req, res) {
-
-});
-
-
-
 //displaying how many times someone has been greeted
 app.get('/counter/:name', function(req, res) {
     /*
